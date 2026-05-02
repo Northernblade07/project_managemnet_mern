@@ -32,7 +32,7 @@ export async function signup(req, res) {
             fullName,
             password,
             profilePic: randomAvatar,
-            role: role || "member" // Default to member if not provided in req.body
+            role: "member" // Default to member if not provided in req.body
         });
     
         const token = jwt.sign({ userId: newUser._id }, process.env.JWT_SECRET_KEY, {
@@ -81,8 +81,8 @@ export async function login(req, res) {
         res.cookie("jwt", token, {
             maxAge: 7 * 24 * 60 * 60 * 1000,
             httpOnly: true,
-            // sameSite: "strict",
-            // secure: process.env.NODE_ENV === "production"
+            sameSite: "strict",
+            secure: process.env.NODE_ENV === "production"
         });
 
         user.password = undefined;
