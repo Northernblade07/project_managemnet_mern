@@ -1,47 +1,44 @@
-import ProjectModel from "../models/project.model.js";
 import Project from "../models/project.model.js";
-import User from "../models/user.model.js";
 
 export const createProject = async (req, res) => {
   try {
-    const { name, members } = req.body;
-
-    if (!name) {
-      return res.status(400).json({ message: "Project name required" });
-    }
-
-    // Validate members exist
-    const validMembers = await User.find({
-      _id: { $in: members },
-    });
-
     const project = await Project.create({
-      name,
-      members: validMembers.map((u) => u._id),
-      createdBy: req.user._id,
+      name: req.body.name,
+      members: req.body.members, // Ensure frontend sends an array of User IDs
+      createdBy: req.user._id,   // Extracted from your protectRoute middleware
     });
 
-    res.status(201).json(project);
+    res.status(201).json({ 
+      success: true, 
+      message: "Project created successfully",
+      data: project 
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Create Project Error:", err);
+    res.status(500).json({ 
+      success: false, 
+      message: err.message || "Internal server error" 
+    });
   }
 };
 
-
 export const getProjects = async (req, res) => {
   try {
-    let projects;
-
-    if (req.user.role === "admin") {
-      projects = await Project.find().populate("members");
-    } else {
-      projects = await Project.find({
-        members: req.user._id,
-      }).populate("members");
-    }
-
-    res.json(projects);
+    // Populate replaces the raw ObjectIds with actual user data (name, email)
+    // We pass "-password" to ensure we don't accidentally send password hashes to the frontend
+    const projects = await Project.find()
+      .populate("members", "-password")
+      .populate("createdBy", "-password"); 
+      
+    res.status(200).json({ 
+      success: true, 
+      data: projects 
+    });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Get Projects Error:", err);
+    res.status(500).json({ 
+      success: false, 
+      message: "Failed to fetch projects" 
+    });
   }
 };
