@@ -21,9 +21,9 @@ export const protectRoute = async (req, res, next) => {
         req.user = user;
         next();
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ success: false, message: "internal server issue" });
-    }
+    console.log("Auth error:", error.message);
+    return res.status(401).json({ message: "Unauthorized access" });
+}
 }
 
 // NEW: This is how you restrict routes to Admins only
