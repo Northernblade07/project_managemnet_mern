@@ -1,38 +1,7 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-node_modules
-dist
-dist-ssr
-*.local
-
-# Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-.idea
-.DS_Store
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
 # =========================
 # Node modules
 # =========================
 node_modules/
-
-# =========================
-# Build output
-# =========================
-dist/
-build/
 
 # =========================
 # Environment variables
@@ -44,6 +13,7 @@ build/
 # =========================
 # Logs
 # =========================
+logs
 *.log
 npm-debug.log*
 yarn-debug.log*
@@ -57,9 +27,29 @@ pnpm-debug.log*
 Thumbs.db
 
 # =========================
-# Vite cache
+# Runtime files
 # =========================
-.vite/
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# =========================
+# Coverage / testing
+# =========================
+coverage/
+
+# =========================
+# Build / dist
+# =========================
+dist/
+build/
+
+# =========================
+# Temporary files
+# =========================
+tmp/
+temp/
 
 # =========================
 # IDE / Editor
