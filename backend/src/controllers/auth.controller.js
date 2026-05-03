@@ -1,4 +1,4 @@
-import User from "../models/user.model.js"; // Check your exact file name
+import User from "../models/User.model.js";
 import jwt from 'jsonwebtoken';
 
 export async function signup(req, res) {
