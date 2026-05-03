@@ -12,5 +12,3 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
-// routes/user.route.js
-// Add this: router.get("/", protectRoute, authorizeRoles("admin"), getAllUsers);

@@ -1,4 +1,3 @@
-import React from "react";
 import { Navigate, Route, Routes } from "react-router";
 import { Toaster } from "react-hot-toast";
 
@@ -31,7 +30,7 @@ const App = () => {
   const isAdmin = authUser?.role === "admin";
 
   return (
-    <div className="h-screen" data-theme={theme}>
+ <div className="min-h-screen bg-base-100" data-theme={theme}>
       <Routes>
 
         {/* PUBLIC */}
@@ -94,20 +93,6 @@ const App = () => {
             isAuthenticated && isAdmin ? (
               <Layout>
                 <UserPage />
-              </Layout>
-            ) : (
-              <Navigate to="/" />
-            )
-          }
-        />
-
-        {/* ADMIN DASHBOARD */}
-        <Route
-          path="/admin"
-          element={
-            isAuthenticated && isAdmin ? (
-              <Layout>
-                <AdminDashboard />
               </Layout>
             ) : (
               <Navigate to="/" />

@@ -33,8 +33,10 @@ export const getTasks = async (req, res) => {
 
 export const updateTaskStatus = async (req, res) => {
   try {
+    console.log(req.params.id);
     const task = await Task.findById(req.params.id);
 
+    console.log(task)
     if (!task) {
       return res.status(404).json({ success: false, message: "Task not found" });
     }
